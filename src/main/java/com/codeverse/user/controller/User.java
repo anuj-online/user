@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public class User {
     private String email;
     private String password;
+    private String fullName;
     private String phoneNumber;
     private LocalDate dob;
     private String college;
