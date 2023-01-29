@@ -1,23 +1,21 @@
 package com.codeverse.user.service;
 
-import com.codeverse.user.controller.UserContent;
+import com.codeverse.user.controller.User;
 import com.codeverse.user.repository.entity.PostEntity;
 import com.codeverse.user.repository.entity.PostRepo;
 import com.codeverse.user.repository.entity.UserEntity;
 import com.codeverse.user.repository.entity.UserRepo;
-import com.codeverse.user.controller.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -57,5 +55,15 @@ public class UserService {
         }
         log.info("no content found, sending empty data");
         return Pair.of("", new byte[]{});
+    }
+
+    public String forgotPassword(String emailId){
+       List<UserEntity> userEntity =  userRepo.findByEmail(emailId);
+
+       if(userEntity.size()>0){
+           String token = RandomString.make(30);
+           return token;
+       }
+        return null;
     }
 }

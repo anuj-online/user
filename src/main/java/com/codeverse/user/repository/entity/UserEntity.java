@@ -35,6 +35,7 @@ public class UserEntity {
     private String laptopBrand;
     @Column(nullable = false)
     private LocalDateTime registrationTime= LocalDateTime.now();
-
+    @Column
+    private String resetToken;
 
 }
