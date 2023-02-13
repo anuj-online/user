@@ -16,4 +16,5 @@ public class User {
     private String branch;
     private boolean laptop;
     private String laptopBrand;
+    private String resetToken;
 }
