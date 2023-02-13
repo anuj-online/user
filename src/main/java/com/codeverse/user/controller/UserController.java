@@ -1,5 +1,6 @@
 package com.codeverse.user.controller;
 
+import com.codeverse.user.repository.entity.UserEntity;
 import com.codeverse.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
@@ -7,15 +8,18 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.util.Pair;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
+    private PasswordEncoder encoder;
 
 
     @PostMapping
@@ -47,6 +51,39 @@ public class UserController {
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("application/json"))
                 .body(postsForUser);
+    }
+    /**
+     * Any user can access this API - No Authentication required
+     * @param student
+     * @return
+     */
+
+    @PostMapping("/register")
+    public UserEntity registerStudent(@RequestBody UserEntity student) {
+        UserEntity student1 = new UserEntity();
+
+        student1.setPassword(encoder.encode(student.getPassword()));
+        student1.setSrole(student.getSrole());
+        return userService.register(student1);
+    }
+    /**
+     * User who has logged in successfully can access this API
+     * @param username
+     * @return
+     */
+    @GetMapping("/studentInfo")
+    public UserEntity getStudentInfo(@RequestParam("sname") String username) {
+        return userService.getDetails(username);
+    }
+
+    /**
+     * User who has the role ROLE_WRITE can only access this API
+     * @param username
+     * @return
+     */
+    @GetMapping("/getStudentRoles")
+    public String getStudentRoles(@RequestParam("sname") String username) {
+        return userService.getStudentRoles(username);
     }
 
 }

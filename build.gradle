@@ -4,9 +4,11 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
+
 group = 'com.codeverse'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+apply plugin: 'org.springframework.boot'
 
 repositories {
 	mavenCentral()
@@ -22,9 +24,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.cloud:spring-cloud-gcp-starter-sql-postgresql:1.2.8.RELEASE'
+	implementation 'com.google.cloud:spring-cloud-gcp-starter-sql-postgresql:3.1.0'
+	implementation 'org.springframework.boot:spring-boot-starter-security:2.7.4'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.4'
-	implementation 'org.springframework.cloud:spring-cloud-gcp-starter:1.1.1.RELEASE'
 }
 
 tasks.named('test') {

@@ -32,6 +32,7 @@ public class UserService {
     }
 
     public List<User> userEntities(){
+        System.out.println("User Entities");
         return OBJECT_MAPPER.convertValue(userRepo.findAll(), new TypeReference<List<User>>() {
         });
     }
@@ -65,5 +66,16 @@ public class UserService {
            return token;
        }
         return null;
+    }
+    public UserEntity register(UserEntity student) {
+        return userRepo.save(student);
+    }
+
+    public UserEntity getDetails(String username) {
+        return userRepo.findByFullName(username);
+    }
+
+    public String getStudentRoles(String username) {
+        return userRepo.findByFullName(username).getSrole();
     }
 }

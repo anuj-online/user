@@ -32,6 +32,8 @@ public class UserEntity {
     @Column(nullable = false)
     private boolean laptop;
 
+    @Column(name = "roles")
+    private String srole;
     private String laptopBrand;
     @Column(nullable = false)
     private LocalDateTime registrationTime= LocalDateTime.now();
