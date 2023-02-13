@@ -12,15 +12,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().
+
+        http.csrf().disable();
+        http.authorizeRequests()
+                .antMatchers("/studentInfo").authenticated()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/getStudentRoles").hasAuthority("ROLE_WRITE")
+                .and()
+                .httpBasic();
+      /*  http.csrf().
                 disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**")
-                .permitAll()
+                .antMatchers("/studentInfo").authenticated()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/getStudentRoles").hasAuthority("ROLE_WRITE")
+                //.permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();
+
+       */
     }
 
     @Bean

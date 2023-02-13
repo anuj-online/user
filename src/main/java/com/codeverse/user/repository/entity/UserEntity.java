@@ -1,5 +1,6 @@
 package com.codeverse.user.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -24,6 +25,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String phoneNumber;
     @Column(nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dob;
     @Column(nullable = false)
     private String college;

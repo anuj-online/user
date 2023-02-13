@@ -60,11 +60,10 @@ public class UserController {
 
     @PostMapping("/register")
     public UserEntity registerStudent(@RequestBody UserEntity student) {
-        UserEntity student1 = new UserEntity();
 
-        student1.setPassword(encoder.encode(student.getPassword()));
-        student1.setSrole(student.getSrole());
-        return userService.register(student1);
+        student.setPassword(encoder.encode(student.getPassword()));
+
+        return userService.register(student);
     }
     /**
      * User who has logged in successfully can access this API
